@@ -307,140 +307,140 @@ class HouseInformation(models.Model):
     )
 
     MSSubClass = models.IntegerField(choices=MS_SUBCLASS_CHOICES,
-                                     help_text='Identifies the type of dwelling involved in the sale.')
+                                     help_text='Identifies the type of dwelling involved in the sale.', null=True)
     MSZoning = models.CharField(max_length=2, choices=MS_ZONING_CHOICES,
-                                help_text='Identifies the general zoning classification of the sale.')
+                                help_text='Identifies the general zoning classification of the sale.', null=True)
     LotFrontage = models.IntegerField(default=0, validators=[MaxValueValidator(500), MinValueValidator(1)],
-                                      help_text='Linear feet of street connected to property (Min 0 | Max 500)')
+                                      help_text='Linear feet of street connected to property (Min 0 | Max 500)', null=True)
     LotArea = models.IntegerField(default=0, validators=[MaxValueValidator(50000), MinValueValidator(1)],
-                                  help_text='Lot size in square feet (Min 0 | Max 50000)')
+                                  help_text='Lot size in square feet (Min 0 | Max 50000)', null=True)
     Street = models.CharField(max_length=4, choices=STREET_CHOICES,
-                              help_text='Type of road access to property')
-    Alley = models.CharField(max_length=4, choices=ALLEY_CHOICES, help_text='Type of alley access to property')
-    LotShape = models.CharField(max_length=3, choices=LOT_SHAPE_CHOICES, help_text='General shape of property')
-    LandContour = models.CharField(max_length=3, choices=LAND_CONTOUR_CHOICES, help_text='Flatness of the property')
-    LandSlope = models.CharField(max_length=3, choices=LAND_SLOPE_CHOICE, help_text='Slope of property')
+                              help_text='Type of road access to property', null=True)
+    Alley = models.CharField(max_length=4, choices=ALLEY_CHOICES, help_text='Type of alley access to property', null=True)
+    LotShape = models.CharField(max_length=3, choices=LOT_SHAPE_CHOICES, help_text='General shape of property', null=True)
+    LandContour = models.CharField(max_length=3, choices=LAND_CONTOUR_CHOICES, help_text='Flatness of the property', null=True)
+    LandSlope = models.CharField(max_length=3, choices=LAND_SLOPE_CHOICE, help_text='Slope of property', null=True)
     Neighborhood = models.CharField(max_length=8, choices=NEIGHBORHOOD_CHOICES,
-                                    help_text='Physical locations within Ames city limits')
+                                    help_text='Physical locations within Ames city limits', null=True)
     Condition1 = models.CharField(max_length=6, choices=CONDITION_CHOICES,
-                                  help_text='Proximity to various conditions')
+                                  help_text='Proximity to various conditions', null=True)
     Condition2 = models.CharField(max_length=6, choices=CONDITION_CHOICES,
-                                  help_text='Proximity to various conditions (if more than one is present)')
-    BldgType = models.CharField(max_length=6, choices=BLDGTYPE_CHOICES, help_text='Type of dwelling')
-    HouseStyle = models.CharField(max_length=6, choices=HOUSE_STYLE_CHOICES, help_text='Style of dwelling')
+                                  help_text='Proximity to various conditions (if more than one is present)', null=True)
+    BldgType = models.CharField(max_length=6, choices=BLDGTYPE_CHOICES, help_text='Type of dwelling', null=True)
+    HouseStyle = models.CharField(max_length=6, choices=HOUSE_STYLE_CHOICES, help_text='Style of dwelling', null=True)
     OverallQual = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)],
                                       choices=OVERALL_CHOICES,
-                                      help_text='Rates the overall material and finish of the house')
+                                      help_text='Rates the overall material and finish of the house', null=True)
     OverallCond = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)],
-                                      choices=OVERALL_CHOICES, help_text='Rates the overall condition of the house')
+                                      choices=OVERALL_CHOICES, help_text='Rates the overall condition of the house', null=True)
     # TODO Figure out how to have year only
     YearBuilt = models.IntegerField(default=2019, validators=[MaxValueValidator(2020), MinValueValidator(0)],
-                                    help_text='Original construction year')
+                                    help_text='Original construction year', null=True)
     YearRemodAdd = models.IntegerField(default=2019, validators=[MaxValueValidator(2020), MinValueValidator(0)],
                                        help_text='Remodel year (same as construction date if no remodeling or '
-                                                 'additions)')
-    RoofStyle = models.CharField(max_length=7, choices=ROOF_STYLE_CHOICES, help_text='Type of roof')
-    RoofMat = models.CharField(max_length=7, choices=ROOF_MAT_CHOICES, help_text='Roof material')
-    Exterior1 = models.CharField(max_length=7, choices=EXTERIOR_CHOICES, help_text='Exterior covering on house')
+                                                 'additions)', null=True)
+    RoofStyle = models.CharField(max_length=7, choices=ROOF_STYLE_CHOICES, help_text='Type of roof', null=True)
+    RoofMat = models.CharField(max_length=7, choices=ROOF_MAT_CHOICES, help_text='Roof material', null=True)
+    Exterior1 = models.CharField(max_length=7, choices=EXTERIOR_CHOICES, help_text='Exterior covering on house', null=True)
     Exterior2 = models.CharField(max_length=7, choices=EXTERIOR_CHOICES, help_text='Exterior covering on house (if '
-                                                                                   'more than one material)')
-    MasVnrType = models.CharField(max_length=7, choices=MAS_VNR_CHOICES, help_text='Masonry veneer type')
+                                                                                   'more than one material)', null=True)
+    MasVnrType = models.CharField(max_length=7, choices=MAS_VNR_CHOICES, help_text='Masonry veneer type', null=True)
     MasVnrArea = models.IntegerField(default=0, validators=[MaxValueValidator(3000), MinValueValidator(0)],
-                                     help_text='Lot size in square feet (Min 0 | Max 3000)')
+                                     help_text='Lot size in square feet (Min 0 | Max 3000)', null=True)
     ExterQaul = models.CharField(max_length=2, choices=EXTERIOR_QUALITY_CHOICES, help_text='Evaluates the quality of '
                                                                                            'the material on the '
-                                                                                           'exterior')
+                                                                                           'exterior', null=True)
     ExterCond = models.CharField(max_length=2, choices=EXTERIOR_QUALITY_CHOICES, help_text='Evaluates the quality of '
                                                                                            'the material on the '
-                                                                                           'exterior')
-    Foundation = models.CharField(max_length=6, choices=FOUNDATION_CHOICES, help_text='Type of foundation')
+                                                                                           'exterior', null=True)
+    Foundation = models.CharField(max_length=6, choices=FOUNDATION_CHOICES, help_text='Type of foundation', null=True)
     BsmtQual = models.CharField(max_length=2, choices=BSMT_QUAL_CHOICES, help_text='Evaluates the height of the '
-                                                                                   'basement')
+                                                                                   'basement', null=True)
     BsmtCond = models.CharField(max_length=2, choices=BSMT_COND_CHOICES, help_text='Evaluates the general condition '
-                                                                                   'of the basement')
+                                                                                   'of the basement', null=True)
     BsmtExposure = models.CharField(max_length=2, choices=BSMT_EXPOSURE_CHOICES, help_text='Refers to walkout or '
                                                                                            'garden '
-                                                                                           'level walls')
+                                                                                           'level walls', null=True)
     BsmtFinType1 = models.CharField(max_length=2, choices=BSMT_EXPOSURE_CHOICES, help_text='Rating of basement '
-                                                                                           'finished area')
+                                                                                           'finished area', null=True)
     BsmtFinSF1 = models.IntegerField(default=0, validators=[MaxValueValidator(6000), MinValueValidator(0)],
-                                     help_text='Type 1 finished square feet (Min 0 | Max 6000)')
+                                     help_text='Type 1 finished square feet (Min 0 | Max 6000)', null=True)
     BsmtFinType2 = models.CharField(max_length=2, choices=BSMT_EXPOSURE_CHOICES, help_text='Rating of basement '
                                                                                            'finished area (if '
-                                                                                           'multiple types)')
+                                                                                           'multiple types)', null=True)
     BsmtFinSF2 = models.IntegerField(default=0, validators=[MaxValueValidator(6000), MinValueValidator(0)],
-                                     help_text='Type 2 finished square feet (Min 0 | Max 6000)')
+                                     help_text='Type 2 finished square feet (Min 0 | Max 6000)', null=True)
     BsmtUnfSF = models.IntegerField(default=0, validators=[MaxValueValidator(4000), MinValueValidator(0)],
-                                    help_text='Unfinished square feet of basement area (Min 0 | Max 4000)')
+                                    help_text='Unfinished square feet of basement area (Min 0 | Max 4000)', null=True)
     TotalBsmtSF = models.IntegerField(default=0, validators=[MaxValueValidator(6500), MinValueValidator(0)],
-                                      help_text='Total square feet of basement area (Min 0 | Max 6500)')
-    Heating = models.CharField(max_length=5, choices=HEATING_CHOICES, help_text='Type of heating')
-    HeatingQC = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Heating quality and condition')
-    CentralAir = models.CharField(max_length=1, choices=CENTRAL_AIR_CHOICES, help_text='Central air conditioning')
-    Electrical = models.CharField(max_length=5, choices=ELECTRICAL_CHOICES, help_text='Electrical system')
+                                      help_text='Total square feet of basement area (Min 0 | Max 6500)', null=True)
+    Heating = models.CharField(max_length=5, choices=HEATING_CHOICES, help_text='Type of heating', null=True)
+    HeatingQC = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Heating quality and condition', null=True)
+    CentralAir = models.CharField(max_length=1, choices=CENTRAL_AIR_CHOICES, help_text='Central air conditioning', null=True)
+    Electrical = models.CharField(max_length=5, choices=ELECTRICAL_CHOICES, help_text='Electrical system', null=True)
     OneFlrSF = models.IntegerField(default=0, validators=[MaxValueValidator(5000), MinValueValidator(0)],
-                                   help_text='First Floor square feet (Min 0 | Max 5000)')
+                                   help_text='First Floor square feet (Min 0 | Max 5000)', null=True)
     TwoFlrSF = models.IntegerField(default=0, validators=[MaxValueValidator(5000), MinValueValidator(0)],
-                                   help_text='Second floor square feet (Min 0 | Max 5000)')
+                                   help_text='Second floor square feet (Min 0 | Max 5000)', null=True)
     LowQualFinSF = models.IntegerField(default=0, validators=[MaxValueValidator(1000), MinValueValidator(0)],
-                                       help_text='Low quality finished square feet (all floors) (Min 0 | Max 1000)')
+                                       help_text='Low quality finished square feet (all floors) (Min 0 | Max 1000)', null=True)
     GrLivArea = models.IntegerField(default=0, validators=[MaxValueValidator(6000), MinValueValidator(0)],
-                                    help_text='Above grade (ground) living area square feet (Min 0 | Max 6000)')
+                                    help_text='Above grade (ground) living area square feet (Min 0 | Max 6000)', null=True)
     BsmtFullBath = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)],
-                                       help_text='Basement full bathrooms (Min 0 | Max 10)')
+                                       help_text='Basement full bathrooms (Min 0 | Max 10)', null=True)
     BsmtHalfBath = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                       help_text='Basement half bathrooms (Min 0 | Max 10)')
+                                       help_text='Basement half bathrooms (Min 0 | Max 10)', null=True)
     FullBath = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                   help_text='Full bathrooms above grade (Min 0 | Max 10)')
+                                   help_text='Full bathrooms above grade (Min 0 | Max 10)', null=True)
     HalfBath = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                   help_text='Half baths above grade (Min 0 | Max 10)')
+                                   help_text='Half baths above grade (Min 0 | Max 10)', null=True)
     BedroomAbvGr = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
                                        help_text='Bedrooms above grade (does NOT include basement bedrooms) (Min 0 | '
                                                  'Max '
-                                                 '10)')
+                                                 '10)', null=True)
     KitchenAbvGr = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                       help_text='Kitchens above grade (Min 0 | Max 10)')
-    KitchenQual = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Kitchen quality')
+                                       help_text='Kitchens above grade (Min 0 | Max 10)', null=True)
+    KitchenQual = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Kitchen quality', null=True)
     TotRmsAbvGrd = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(20)],
                                        help_text='Total rooms above grade (does not include bathrooms) (Min 0 | '
                                                  'Max '
-                                                 '20)')
+                                                 '20)', null=True)
     Functional = models.CharField(max_length=4, choices=FUNCTIONAL_CHOICES,
-                                  help_text='Home functionality (Assume typical unless deductions are warranted)')
+                                  help_text='Home functionality (Assume typical unless deductions are warranted)', null=True)
     Fireplaces = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                     help_text='Number of fireplaces (Min 0 | Max 10)')
-    FireplaceQu = models.CharField(max_length=2, choices=FIREPLACE_QUALITY_CHOICES, help_text='Fireplace quality')
-    GarageType = models.CharField(max_length=2, choices=GARAGE_TYPE_CHOICE, help_text='Garage location')
+                                     help_text='Number of fireplaces (Min 0 | Max 10)', null=True)
+    FireplaceQu = models.CharField(max_length=2, choices=FIREPLACE_QUALITY_CHOICES, help_text='Fireplace quality', null=True)
+    GarageType = models.CharField(max_length=2, choices=GARAGE_TYPE_CHOICE, help_text='Garage location', null=True)
     # TODO DATE
     GarageYrBlt = models.IntegerField(default=2019, validators=[MaxValueValidator(2020), MinValueValidator(0)],
-                                      help_text='Year garage was built')
+                                      help_text='Year garage was built', null=True)
     GarageFinish = models.CharField(max_length=3, choices=GARAGE_FINISH_CHOICE,
-                                    help_text='Interior finish of the garage')
+                                    help_text='Interior finish of the garage', null=True)
     GarageCars = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(10)],
-                                     help_text='Size of garage in car capacity (Min 0 | Max 10)')
+                                     help_text='Size of garage in car capacity (Min 0 | Max 10)', null=True)
     GarageArea = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(2000)],
-                                     help_text='Size of garage in square feet (Min 0 | Max 2000)')
-    GarageQual = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Garage quality')
+                                     help_text='Size of garage in square feet (Min 0 | Max 2000)', null=True)
+    GarageQual = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Garage quality', null=True)
     GarageCond = models.CharField(max_length=2, choices=HEATING_QC_CHOICES,
-                                  help_text='Garage conditionGarage condition')
-    PavedDrive = models.CharField(max_length=2, choices=PAVED_DRIVE_CHOICES, help_text='Paved driveway')
+                                  help_text='Garage conditionGarage condition', null=True)
+    PavedDrive = models.CharField(max_length=2, choices=PAVED_DRIVE_CHOICES, help_text='Paved driveway', null=True)
     WoodDeckSF = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                     help_text='Wood deck area in square feet (Min 0 | Max 1000)')
+                                     help_text='Wood deck area in square feet (Min 0 | Max 1000)', null=True)
     # TODO create plots are find better values
     OpenPorchSF = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                      help_text='Open porch area in square feet (Min 0 | Max 1000)')
+                                      help_text='Open porch area in square feet (Min 0 | Max 1000)', null=True)
     EnclosedPorch = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                        help_text='Enclosed porch area in square feet (Min 0 | Max 1000)')
+                                        help_text='Enclosed porch area in square feet (Min 0 | Max 1000)', null=True)
     ThreeSsnPorch = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                        help_text='Three season porch area in square feet (Min 0 | Max 1000)')
+                                        help_text='Three season porch area in square feet (Min 0 | Max 1000)', null=True)
     ScreenPorch = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                      help_text='Screen porch area in square feet (Min 0 | Max 1000)')
+                                      help_text='Screen porch area in square feet (Min 0 | Max 1000)', null=True)
     PoolArea = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                   help_text='Pool area in square feet (Min 0 | Max 1000)')
-    PoolQC = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Pool quality')
-    Fence = models.CharField(max_length=5, choices=FENCE_QUALITY_CHOICES, help_text='Fence quality')
+                                   help_text='Pool area in square feet (Min 0 | Max 1000)', null=True)
+    PoolQC = models.CharField(max_length=2, choices=HEATING_QC_CHOICES, help_text='Pool quality', null=True)
+    Fence = models.CharField(max_length=5, choices=FENCE_QUALITY_CHOICES, help_text='Fence quality', null=True)
     MiscFeature = models.CharField(max_length=5, choices=MISC_FEATURE_CHOICES,
-                                   help_text='Miscellaneous feature not covered in other categories')
+                                   help_text='Miscellaneous feature not covered in other categories', null=True)
     # TODO CHECK IF NEEDED
     MiscVal = models.IntegerField(default=0, validators=[MaxValueValidator(0), MinValueValidator(1000)],
-                                  help_text='Pool area in square feet (Min 0 | Max 1000)')
+                                  help_text='Pool area in square feet (Min 0 | Max 1000)', null=True)
