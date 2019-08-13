@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import predictionForm
 
@@ -12,5 +12,14 @@ def home(request):
 
 
 def prediction(request):
-    predForm = predictionForm()
-    return render(request, 'prediction/prediction.html', {'form': predForm})
+    if request.method == 'POST':
+        predForm = predictionForm(request.POST)
+        print("Entered POST")
+        if predForm.is_valid():
+            predForm.save()
+            return redirect('home')
+        else:
+            return render(request, 'prediction/prediction.html', {'form': predForm})
+    else:
+        predForm = predictionForm()
+        return render(request, 'prediction/prediction.html', {'form': predForm})
