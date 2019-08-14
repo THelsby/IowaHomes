@@ -5,12 +5,16 @@
 {% endif %}
 <div class="container">
     <div class="col-md-12 order-md-1">
-        <h1 class="">Prediction</h1>
-        <form method="POST" action="{% url 'prediction' %}">
-            {% csrf_token %}
-            {{form.as_p}}
-             <button type="submit" class="btn btn-outline-primary">Generate House Price</button>
-        </form>
+        {% if prediction %}
+            <h1>Estimated Prediction: ${{prediction}}</h1>
+        {% else %}
+            <h1 class="">Prediction</h1>
+        {% endif %}
+            <form method="POST" action="{% url 'prediction' %}">
+                {% csrf_token %}
+                {{form.as_p}}
+                 <button type="submit" class="btn btn-outline-primary">Generate House Price</button>
+            </form>
     </div>
 </div>
     {% endblock %}
