@@ -34,7 +34,7 @@ pip install django
 pip install psycopg2
 ```
 
-![alt text](https://imgur.com/a/2Sqv2S5)
+![alt text](https://i.imgur.com/yaLqNfM.png)
 
 ## Running the tests
 
