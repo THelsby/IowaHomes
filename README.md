@@ -33,6 +33,10 @@ git clone https://github.com/THelsby/IowaHomes.git
 cd iowaHomes/
 pip install django
 pip install psycopg2
+python manage.py makemigrations
+python manage.py migration
+python manage.py runserver
+
 ```
 Head to the address
 ```
