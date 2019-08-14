@@ -18,7 +18,8 @@ What things you need to install the software and how to install them
 
 ```
 Install Python3
-Install pip
+Install Pip
+Install Postgresql
 ```
 
 ### Installing
@@ -33,38 +34,18 @@ cd iowaHomes/
 pip install django
 pip install psycopg2
 ```
-
+Head to the address
+```
+http://127.0.0.1:8000/prediction/
+```
 ![alt text](https://i.imgur.com/yaLqNfM.png)
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Django](https://www.djangoproject.com/)
+* [Python](https://www.python.org/) 
+* [Scikit-Learn](https://scikit-learn.org/stable/)
+* [Postgres](https://www.postgresql.org/)
 
 ## Contributing
 
