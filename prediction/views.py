@@ -9,11 +9,11 @@ sys.path.append(os.path.join(PROJECT_DIRECTORY, "pricePrediction"))
 
 from housePrediction import trainModel, predictPrice
 
-
 # TODO use above package to require login to veiw homes @login_required
 
 trainModel()
-# Create your views here.
+
+
 def home(request):
     return render(request, 'prediction/home.html')
 
