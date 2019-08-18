@@ -40,9 +40,7 @@ INSTALLED_APPS = [
 
     #MyApps
     'prediction.apps.PredictionConfig',
-
-    #REST
-    'rest_framework',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
