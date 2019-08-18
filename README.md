@@ -26,18 +26,28 @@ Install Postgresql
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
-
+First clone the repository and install the dependency of the project
 ```
 git clone https://github.com/THelsby/IowaHomes.git
 cd iowaHomes/
-pip install django
-pip install psycopg2
+pip install -r requirements.txt
+```
+
+Secondly open up postgresql and use the default user with password admin and a database named IowaHomes
+```
+sudo -u postgres psql
+ALTER USER postgres PASSWORD 'admin';
+CREATE DATABASE "IowaHomes";
+```
+
+
+Finally use djangos built in functions to auto-generate the database and run the server.
+```
 python manage.py makemigrations
 python manage.py migration
 python manage.py runserver
-
 ```
+
 Head to the address
 ```
 http://127.0.0.1:8000/prediction/
