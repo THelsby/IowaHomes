@@ -16,6 +16,12 @@ from sklearn.tree import DecisionTreeRegressor
 
 
 def scatterPlot(dataset):
+    """Create plots for each column in the dataset in relation to SalesPrice
+
+    Parameters:
+    dataset (pd.Dataset): Entire Iowa Homes dataset
+
+   """
     for data in dataset.columns:
         plt.scatter(dataset[data], dataset["SalePrice"])
         plt.title(data)
@@ -25,12 +31,25 @@ def scatterPlot(dataset):
 
 
 def readInData():
+    """Reads in the data from CSV
+
+    Returns:
+    train (pd.Dataset) : Training set
+    test (pd.Dataset) : Testing set
+
+   """
     train = pd.read_csv("prediction/pricePrediction/train.csv")
     test = pd.read_csv("prediction/pricePrediction/test.csv")
     return train, test
 
 
 def checkNAValues(data):
+    """Checks each column/row for NA values and prints out the number of missing values per column
+
+    Parameters:
+    data (pd.dataset): Entire Iowa Homes dataset
+
+   """
     dataNa = (data.isnull().sum() / len(data)) * 100
     dataNa = dataNa.drop(dataNa[dataNa == 0].index).sort_values(ascending=False)
     missingData = pd.DataFrame({'Missing Ratio': dataNa})
@@ -38,15 +57,46 @@ def checkNAValues(data):
 
 
 def dropSalesPrice(train):
+    """Removes SalePrice column
+
+    Parameters:
+    train (pd.Dataset): Training set
+
+    Returns:
+    train (pd.Dataset) : Training set with SalePrice removed
+
+   """
     train.drop(["SalePrice"], axis=1, inplace=True)
     return train
 
 
 def getTrainingLabels(train):
+    """Slices the SalePrice column from the dataset
+
+    Parameters:
+    train (pd.Dataset): Training set
+
+    Returns:
+    train.SalePrice.values (pd.Dataset): Single column SalePrice
+
+   """
     return train.SalePrice.values
 
 
 def dropIdColumn(train, test):
+    """Detaches Id column from both datasets
+
+    Parameters:
+    train (pd.Dataset): Training set
+    test (pd.Dataset): Testing set
+
+    Returns:
+    train (pd.Dataset): Training set without Id
+    test (pd.Dataset): Testing set without Id
+    trainId (pd.Dataset) : Training Id fields
+    testId (pd.Dataset) : Testing Id fields
+
+   """
     trainId = train['Id']
     testId = test['Id']
 
@@ -56,11 +106,29 @@ def dropIdColumn(train, test):
 
 
 def applyNormalDistributionToSales(train):
+    """Applies normal distribution to sales price
+
+    Parameters:
+    train (pd.Dataset): Training set
+
+    Returns:
+    train (pd.Dataset) : Training set with SalePrice field normally distributed
+
+   """
     train["SalePrice"] = np.log1p(train["SalePrice"])
     return train
 
 
 def fillNaValues(data):
+    """Pipeline to remove NA values based on what operation needs to be taken place to retain useful information
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset) : Dataset without any NA values
+
+   """
     data = fillNaToNone(data)
     data = fillNaToMedian(data)
     data = fillNaToMode(data)
@@ -70,6 +138,15 @@ def fillNaValues(data):
 
 
 def removeColumns(data):
+    """Removes columns from dataset
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset): Dataset with columns removed
+
+   """
     columns = ["Utilities", "SaleType", "MoSold", "YrSold", "SaleCondition"]
     for column in columns:
         data = data.drop([column], axis=1)
@@ -77,6 +154,15 @@ def removeColumns(data):
 
 
 def fillNaToNone(data):
+    """Iterates through NA values and changes them to None
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset): Dataset with any NA values in the columns listed changed to None
+
+   """
     columns = ["PoolQC", "MiscFeature", "Alley", "Fence", "FireplaceQu", "GarageType", "GarageFinish",
                "GarageQual", "GarageCond", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1", "BsmtFinType2",
                "MasVnrType"]
@@ -86,12 +172,30 @@ def fillNaToNone(data):
 
 
 def fillNaToMedian(data):
+    """Iterates through NA values and changes them to the median
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset) : Dataset with any NA values in the columns listed changed to the median
+
+   """
     data["LotFrontage"] = data.groupby("Neighborhood")["LotFrontage"].transform(
         lambda x: x.fillna(x.median()))
     return data
 
 
 def fillNaToMode(data):
+    """Iterates through NA values and changes them to the mode
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset) : Dataset with any NA values in the columns listed changed to the mode
+
+   """
     columns = ["MSZoning", "Functional", "Electrical", "KitchenQual", "Exterior1st", "Exterior2nd"]
     for column in columns:
         data[column] = data[column].fillna(data[column].mode()[0])
@@ -99,6 +203,15 @@ def fillNaToMode(data):
 
 
 def fillNaToZero(data):
+    """Iterates through NA values and changes them to 0
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset) : Dataset with any NA values in the columns listed changed to 0
+
+   """
     columns = ["GarageYrBlt", "GarageArea", "GarageCars", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF",
                "BsmtFullBath", "BsmtHalfBath", "MasVnrArea"]
     for column in columns:
@@ -107,11 +220,32 @@ def fillNaToZero(data):
 
 
 def fillNaToCustom(data):
+    """Iterates through NA values and changes them to Typ
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    pd.Dataset: Dataset with any NA values in the columns listed changed to Typ
+
+   """
     data["Functional"] = data["Functional"].fillna("Typ")
     return data
 
 
 def ordinalEncoder(data):
+    """Iterates through the dataset and any object data type will be converted using an ordinal encoder.
+    The input to this transformer should be an array-like of integers or strings, denoting the values taken on
+    by categorical (discrete) features. The features are converted to ordinal integers.
+    This results in a single column of integers (0 to n_categories - 1) per feature.
+
+    Parameters:
+    dataset (pd.Dataset): Both datasets
+
+    Returns:
+    data (pd.Dataset) : Dataset without categorical information
+
+   """
     columns = list(data.select_dtypes(include=[np.object]))
     enc = preprocessing.OrdinalEncoder()
     for column in columns:
@@ -129,6 +263,19 @@ def ordinalEncoder(data):
 
 
 def trainTestSplit(trainData, trainLabels):
+    """Splits training dataset into training and validation set
+
+    Parameters:
+    trainData (pd.Dataset): Training datasets without
+    trainLabels (pd.Dataset): Training datasets labels
+
+    Returns:
+    TrainX (pd.Dataset): Training dataset without labels
+    TestX (pd.Dataset): Training dataset labels
+    TrainY (pd.Dataset): Validation dataset without labels
+    TestY (pd.Dataset) : Validation dataset labels
+
+   """
     TrainX, TestX, TrainY, TestY = train_test_split(trainData, trainLabels, test_size=0.33, random_state=42)
     return TrainX, TestX, TrainY, TestY
 
@@ -162,6 +309,19 @@ def treeRegression(trainX, testX, trainY, testY):
 
 
 def linearRegression(trainX, testX, trainY, testY):
+    """Takes datasets and labels and fits Linear regression model.
+    Uses the validation set to then return a score based on the predicted outcomes using the coefficient R^2
+
+    Parameters:
+    trainX (pd.Dataset): Training dataset without labels
+    testX (pd.Dataset): Testing dataset without labels
+    trainY (pd.Dataset): Training dataset labels
+    testY (pd.Dataset): Testing dataset labels
+
+    Returns:
+    linReg (Instance of model): The instance of the model which has been fitted with dataset
+
+   """
     linReg = LinearRegression()
     linReg.fit(trainX, trainY)
     confidence = linReg.score(testX, testY)
@@ -178,6 +338,10 @@ def linearRegression(trainX, testX, trainY, testY):
 
 
 def trainModel():
+    """Pipeline to import datasets, remove NA values, convert categorical information, split them into training,
+    validation and testing, pass datasets to models and save the models out.
+
+   """
     print("HELLO")
     train, test = readInData()
 
@@ -224,6 +388,13 @@ def trainModel():
 
 
 def convertDtypes(data):
+    """Reads the datatypes from the training dataset and saves them to a SAV file, which will be loaded in
+    to set the column datatypes when reading in the dataset from the front-end
+
+    Parameters:
+    dataset (pd.Dataset): Prediction dataset
+
+   """
     columnDtypes = {}
     for col in list(data.columns):
         col_dtype = re.sub(r'\d+', '', type(data[col][0]).__name__)
@@ -240,6 +411,18 @@ def convertDtypes(data):
 
 
 def predictPrice(request):
+    """ Takes a request from the front-end which contains a form which get converted into a dataset and gets stored in
+    a panda dataset. Once in a dataset I then convert the types to the original by loading in the dtypes.sav which was
+    created earlier. No I have a working dataset I run through the datacleaning techniques, removing NA values and
+    changing categorical data. Finally Loading in the model which I can then predict on using the data inputed from the user.
+
+    Parameters:
+    request (request): Request object from django
+
+    Returns:
+    prediction (int) : The prediction of the house price
+
+   """
     filename = 'finalized_model.sav'
     for key, val in request.items():
         print(key, " ", val)

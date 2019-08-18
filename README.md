@@ -14,25 +14,36 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install
+For this project to run you first need to install
 
 ```
-Install Python3
-Install Pip
-Install Postgresql
+sudo apt-get install python3
+sudo apt-get install python3-pip
+sudo apt-get install python3-venv
+sudo apt install postgresql-11
+
 ```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-First clone the repository and install the dependency of the project
+First clone the repository
 ```
 git clone https://github.com/THelsby/IowaHomes.git
 cd iowaHomes/
-pip install -r requirements.txt
 ```
 
+Create a virtual environment
+```
+python3 -m venv venv
+. ./venv/bin/activate
+```
+
+Install the dependency of the project
+```
+pip3 install -r requirements.txt
+```
 Secondly open up postgresql and use the default user with password admin and a database named IowaHomes
 ```
 sudo -u postgres psql
@@ -43,8 +54,6 @@ CREATE DATABASE "IowaHomes";
 
 Finally use djangos built in functions to auto-generate the database and run the server.
 ```
-python manage.py makemigrations
-python manage.py migration
 python manage.py runserver
 ```
 
