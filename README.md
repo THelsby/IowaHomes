@@ -12,7 +12,7 @@ have made and allow them to edit features on them.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites 
+### Prerequisites
 
 For this project to run you first need to install
 
@@ -54,6 +54,7 @@ CREATE DATABASE "IowaHomes";
 
 Finally use djangos built in functions to auto-generate the database and run the server.
 ```
+python manage.py migrate
 python manage.py runserver
 ```
 

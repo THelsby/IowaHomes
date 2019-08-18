@@ -1,0 +1,3 @@
+#!/bin/bash
+r=$(netstat -ntlp | tr -s " " | cut -d" " -f7 | grep "python3"); kill -9 ${r%"/python3"}
+r=$(netstat -ntlp | tr -s " " | cut -d" " -f7 | grep "python"); kill -9 ${r%"/python"}

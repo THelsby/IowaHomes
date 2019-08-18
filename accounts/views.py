@@ -5,6 +5,15 @@ from django.contrib import auth
 
 # Create your views here.
 def signup(request):
+    """ Allows user to sign up if the passwords match and the username is no already in the system
+
+    Parameters:
+    request (request): holds the information about the web page.
+
+    Returns:
+    render : django shortcut to allow you to pass request data, html page and data.
+
+   """
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
             try:
@@ -22,6 +31,15 @@ def signup(request):
 
 
 def login(request):
+    """ Allows user to log in if they have an account in the database
+
+    Parameters:
+    request (request): holds the information about the web page.
+
+    Returns:
+    render : django shortcut to allow you to pass request data, html page and data.
+
+   """
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
@@ -35,6 +53,15 @@ def login(request):
 
 # TODO need to route to home page and dont forget to logout
 def logout(request):
+    """ Allows user to log out if they're currently logged in
+
+    Parameters:
+    request (request): holds the information about the web page.
+
+    Returns:
+    render : django shortcut to allow you to pass request data, html page and data.
+
+   """
     if request.method == 'POST':
         auth.logout(request)
         return redirect('home')

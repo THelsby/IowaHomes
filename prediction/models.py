@@ -1,5 +1,9 @@
+import datetime
+
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 from django.db import models
+from django.utils.timezone import now
 
 
 class HouseInformation(models.Model):
@@ -311,7 +315,6 @@ class HouseInformation(models.Model):
         ('Tenc', 'Tennis Court'),
         ('NA', 'None')
     )
-
     MSSubClass = models.IntegerField(choices=MS_SUBCLASS_CHOICES,
                                      help_text='Identifies the type of dwelling involved in the sale.', null=True)
     MSZoning = models.CharField(max_length=2, choices=MS_ZONING_CHOICES,
@@ -464,3 +467,9 @@ class HouseInformation(models.Model):
     # TODO CHECK IF NEEDED
     MiscVal = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(0)],
                                   help_text='Pool area in square feet (Min 0 | Max 1000)', null=True)
+
+
+class PredictionLog(models.Model):
+    userId = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    housePredId = models.ForeignKey(HouseInformation, on_delete=models.CASCADE, null=True)
+    date = models.DateTimeField(default=now, editable=False)
